@@ -21,6 +21,8 @@ public class AstronomyAlgorithms {
 		Calendar transit = Calendar.getInstance();
 		Calendar rise = Calendar.getInstance();
 		Calendar set = Calendar.getInstance();
+		Calendar secondObservatoryTransit = Calendar.getInstance();
+		Calendar thirdObservatoryTransit = Calendar.getInstance();
 		
 		//Problem 5
 		double hourAngle = getHourAngle(june19, longitude, ra);
@@ -35,6 +37,12 @@ public class AstronomyAlgorithms {
 		//Problem 6
 		double soupHourAngle = getAltitudeHourAngle(latitude, declenation, 30);
 		System.out.println("Time out of soup: " + 2*soupHourAngle);
+		
+		//Problem 9
+		secondObservatoryTransit.setTimeInMillis(transit.getTimeInMillis() + DateTimeConverter.decimalHourToMillis(2*soupHourAngle));
+		System.out.println("Second Observatory Longitude: " + DateTimeConverter.getLongitude(secondObservatoryTransit, AngleConverter.hoursToDegrees(ra)));
+		thirdObservatoryTransit.setTimeInMillis(secondObservatoryTransit.getTimeInMillis() + DateTimeConverter.decimalHourToMillis(2*soupHourAngle));
+		System.out.println("Third Observatory Longitude: " + DateTimeConverter.getLongitude(thirdObservatoryTransit, AngleConverter.hoursToDegrees(ra)));
 	}
 	
 	/**
@@ -55,7 +63,7 @@ public class AstronomyAlgorithms {
 	 * @param latitude the latitude of the observation site in decimal degrees above the equator
 	 * @param declenation the declenation of the object in decimal degrees
 	 * @param hourAngle the hour angle of the object in decimal hours
-	 * @return
+	 * @return the altitude of the body in decimal degrees
 	 */
 	public static double getAltitude(double latitude, double declenation, double hourAngle) {
 		latitude = toRadians(latitude);
@@ -70,7 +78,7 @@ public class AstronomyAlgorithms {
 	 * @param latitude the latitude of the observation site in decimal degrees above the equator
 	 * @param declenation the declenation of the object in decimal degrees
 	 * @param altitude the altitude of the object in decimal degrees
-	 * @return
+	 * @return the hour angle of the body in decimal hours
 	 */
 	public static double getAltitudeHourAngle(double latitude, double declenation, double altitude) {
 		latitude = toRadians(latitude);

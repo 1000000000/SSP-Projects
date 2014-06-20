@@ -17,15 +17,34 @@ public class DateTimeConverter {
 	 * Calculates the LST from a time and the longitude of the location
 	 * @param time a time equivalent to local time
 	 * @param eastLongitude the longitude of the observation site in decimal degrees east of the prime meridian
-	 * @return the LST
+	 * @return the LST in decimal degrees
 	 */
 	public static double getLST(Calendar time, double eastLongitude) {
+		return (getGMST(time) + eastLongitude) % 360;
+	}
+	
+	/**
+	 * Gets the longitude of a location from its lst and an equivalent civil time
+	 * @param time a civil time equivalent to the lst
+	 * @param lst lst in decimal degrees
+	 * @return the longitude of the location in decimal degrees east of the prime meridian
+	 */
+	public static double getLongitude(Calendar time, double lst) {
+		return lst - getGMST(time);
+	}
+	
+	/**
+	 * Converts a time to GMST
+	 * @param time a time
+	 * @return the GMST in decimal degrees
+	 */
+	public static double getGMST(Calendar time) {
 		double j_0 = getJ_0(time);
 		double hourOfDay = getDecimalHourOfDay(getUTC(time));
 		double jCent = (j_0 - 2451545.0)/36525;
 		double theta_0 = 100.46061837 + 36000.77053608*jCent + 3.87933e-4*Math.pow(jCent, 2) - Math.pow(jCent, 3)/3.871e7;
-		double gmst = theta_0 + 360.985647366*hourOfDay/24;
-		return (gmst + eastLongitude) % 360;
+		return (theta_0 + 360.985647366*hourOfDay/24) % 360;
+		
 	}
 	
 	/**

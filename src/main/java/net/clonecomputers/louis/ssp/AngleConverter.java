@@ -30,6 +30,15 @@ public class AngleConverter {
 	}
 	
 	/**
+	 * Converts decimal hours to decimal degrees
+	 * @param hours a decimal value in hours
+	 * @return an equivalent decimal value in degrees
+	 */
+	public static double hoursToDegrees(double hours) {
+		return 15*hours;
+	}
+	
+	/**
 	 * Converts radians to decimal hours
 	 * @param radians a value in radians
 	 * @return an equivalent decimal value in hours
