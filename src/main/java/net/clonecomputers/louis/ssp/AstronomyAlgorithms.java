@@ -4,7 +4,10 @@ import static java.lang.Math.sin;
 import static java.lang.Math.cos;
 import static java.lang.Math.toRadians;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class AstronomyAlgorithms {
@@ -24,6 +27,9 @@ public class AstronomyAlgorithms {
 		Calendar secondObservatoryTransit = Calendar.getInstance();
 		Calendar thirdObservatoryTransit = Calendar.getInstance();
 		Calendar fourthObservatoryTransit = Calendar.getInstance();
+		Calendar testTime = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		testTime.clear();
+		testTime.set(2014, 0, 1, 6, 0);
 		
 		//Problem 5
 		double hourAngle = getHourAngle(june19, longitude, ra);
@@ -38,6 +44,21 @@ public class AstronomyAlgorithms {
 		//Problem 6
 		double soupHourAngle = getAltitudeHourAngle(latitude, declenation, 30);
 		System.out.println("Time out of soup: " + 2*soupHourAngle);
+		
+		//Problem 7
+		double minDiff = 25;
+		Date best = null;
+		while(testTime.get(Calendar.YEAR) == 2014) {
+			double diff = Math.abs(AngleConverter.degreesToHours(DateTimeConverter.getLST(testTime, longitude)) - ra);
+			if(diff < minDiff) {
+				minDiff = diff;
+				best = testTime.getTime();
+			}
+			testTime.add(Calendar.DAY_OF_YEAR, 1);
+		}
+		DateFormat format = new SimpleDateFormat("EEE MMM d HH:mm:ss z yyyy");
+		format.setTimeZone(TimeZone.getTimeZone("UTC"));
+		System.out.println("MbX transits at 6UT around " + format.format(best) + " (diff: " + minDiff + " hours)");
 		
 		//Problem 9
 		secondObservatoryTransit.setTimeInMillis(transit.getTimeInMillis() + DateTimeConverter.decimalHourToMillis(2*soupHourAngle));
