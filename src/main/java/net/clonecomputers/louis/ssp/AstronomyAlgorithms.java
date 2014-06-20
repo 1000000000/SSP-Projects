@@ -23,6 +23,7 @@ public class AstronomyAlgorithms {
 		Calendar set = Calendar.getInstance();
 		Calendar secondObservatoryTransit = Calendar.getInstance();
 		Calendar thirdObservatoryTransit = Calendar.getInstance();
+		Calendar fourthObservatoryTransit = Calendar.getInstance();
 		
 		//Problem 5
 		double hourAngle = getHourAngle(june19, longitude, ra);
@@ -43,6 +44,8 @@ public class AstronomyAlgorithms {
 		System.out.println("Second Observatory Longitude: " + DateTimeConverter.getLongitude(secondObservatoryTransit, AngleConverter.hoursToDegrees(ra)));
 		thirdObservatoryTransit.setTimeInMillis(secondObservatoryTransit.getTimeInMillis() + DateTimeConverter.decimalHourToMillis(2*soupHourAngle));
 		System.out.println("Third Observatory Longitude: " + DateTimeConverter.getLongitude(thirdObservatoryTransit, AngleConverter.hoursToDegrees(ra)));
+		fourthObservatoryTransit.setTimeInMillis(thirdObservatoryTransit.getTimeInMillis() + DateTimeConverter.decimalHourToMillis(2*soupHourAngle));
+		System.out.println("Unnecessary Fourth Observatory Longitude: " + DateTimeConverter.getLongitude(fourthObservatoryTransit, AngleConverter.hoursToDegrees(ra)));
 	}
 	
 	/**
