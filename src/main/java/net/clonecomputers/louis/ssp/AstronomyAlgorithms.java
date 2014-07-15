@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 public class AstronomyAlgorithms {
@@ -84,6 +85,18 @@ public class AstronomyAlgorithms {
 		
 		//Problem 9
 		System.out.println("Ecliptic coords: (" + mbx.getEclipticLongitude() + ", " + mbx.getEclipticLatitude() + ")");
+		
+		//
+		// Astro 5
+		System.out.println();
+		System.out.println();
+		System.out.println("====================Astro 5====================");
+		System.out.println();
+		//Problem 2e
+		Calendar timeOfObs = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+		timeOfObs.clear();
+		timeOfObs.set(2005, 2, 4, 2, 50);
+		System.out.println("GMST at parallax observation: " + DateTimeConverter.getGMST(timeOfObs));
 	}
 	
 }
